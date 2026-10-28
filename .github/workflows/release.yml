@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Установить зависимости
+        run: pip install -r requirements.txt
+
+      - name: Запустить тесты
+        run: pytest -v
+
+      - name: Собрать Docker-образ
+        run: docker build -t dean-requests:${{ github.ref_name }} .
+
+      - name: Проверить образ
+        run: docker run --rm dean-requests:${{ github.ref_name }} python -c "import app; print(app.__version__)"
