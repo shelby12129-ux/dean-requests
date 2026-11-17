@@ -62,3 +62,5 @@ docker run --rm dean-requests:v1.0.0
 - архитектура: `docs/architecture/`;
 - требования: `docs/requirements/`;
 - тесты: `docs/testing/`.
+## Дополнение от Чехрона
+Ветка создана для демонстрации feature-workflow. Автор: Рахматуллозода Чехрон.
